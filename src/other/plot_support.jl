@@ -12,6 +12,7 @@
 rejection_tail(r::OPTestResultBoot) = _tail_op(r.chart)
 rejection_tail(r::OPTestResultSurrogate) = _tail_op(r.chart)
 rejection_tail(::OPBPTestResultBoot) = :upper
+rejection_tail(::OPMajorizationTestResult) = :lower
 rejection_tail(r::SOPTestResultBoot) =
   r.chart isa Union{TauHat,KappaHat,TauTilde,KappaTilde} ? :two_sided : :upper
 rejection_tail(::SOPBPTestResultBoot) = :upper
@@ -22,7 +23,8 @@ rejection_tail(r::ControlChartResult) = r.tail
 
 # --- Resampled null distribution and the values that go with it ----------------------
 const _BootResult = Union{
-  OPTestResultBoot, OPBPTestResultBoot, SOPTestResultBoot, SOPBPTestResultBoot,
+  OPTestResultBoot, OPBPTestResultBoot, OPMajorizationTestResult,
+  SOPTestResultBoot, SOPBPTestResultBoot,
   ACFTestResultBoot, SACFTestResultBoot, SACFBPTestResultBoot
 }
 
@@ -39,6 +41,8 @@ null_reject(r::OPTestResultSurrogate) = r.surr_reject
 # One line naming the test, for plot titles.
 null_label(r::OPTestResultBoot) = "Bootstrap null, OP $(r.chart), n_boot = $(r.n_boot)"
 null_label(r::OPBPTestResultBoot) = "Bootstrap null, OP Box-Pierce $(r.chart), n_boot = $(r.n_boot)"
+null_label(r::OPMajorizationTestResult) =
+  "Bootstrap null, OP majorization, n_boot = $(r.n_boot), block_size = $(r.block_size)"
 null_label(r::OPTestResultSurrogate) =
   "Surrogate null ($(r.method)), OP $(r.chart), n_surrogates = $(r.n_surrogates)"
 null_label(r::SOPTestResultBoot) = "Bootstrap null, SOP $(r.chart), n_boot = $(r.n_boot)"

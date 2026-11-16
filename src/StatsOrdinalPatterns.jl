@@ -79,6 +79,9 @@ export arl_op_ic,
 # op/op_bootstrap_functions.jl
 export bootstrap_op, test_op_bootstrap, OPTestResultBoot
 
+# op/op_majorization_functions.jl
+export test_op_majorization, OPMajorizationTestResult
+
 # op/op_surrogate_functions.jl (implementation in ext/StatsOrdinalPatternsTimeseriesSurrogatesExt.jl)
 export test_op_surrogate, OPTestResultSurrogate
 
@@ -336,6 +339,7 @@ include("op/op_test_functions.jl")
 include("op/op_test_bp_functions.jl")
 include("op/op_help_functions.jl")
 include("op/op_bootstrap_functions.jl")
+include("op/op_majorization_functions.jl")
 include("op/op_bp_bootstrap_functions.jl")
 include("op/op_surrogate_functions.jl")
 
